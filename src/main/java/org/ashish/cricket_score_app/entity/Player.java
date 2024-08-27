@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Player {
 
+    private int id;
+
     private String name;
 
     private PlayerType playerType;
