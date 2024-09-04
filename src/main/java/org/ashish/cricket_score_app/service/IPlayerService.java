@@ -10,7 +10,9 @@ public interface IPlayerService {
 
     List<Player> getAllPlayers();
 
-    Player updatePlayer(Player player, int playerId);
+    Player updatePlayer(Player player);
 
     Player getPlayer(int playerId);
+
+    void deletePlayer(int playerId);
 }

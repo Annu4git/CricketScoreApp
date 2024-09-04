@@ -33,6 +33,6 @@ public class PlayerController {
 
     @PutMapping("/{playerId}")
     public ResponseEntity<?> updatePlayer(@RequestBody Player player, @PathVariable int playerId) {
-        return ResponseEntity.ok().body(playerService.updatePlayer(player, playerId));
+        return ResponseEntity.ok().body(playerService.updatePlayer(player));
     }
 }

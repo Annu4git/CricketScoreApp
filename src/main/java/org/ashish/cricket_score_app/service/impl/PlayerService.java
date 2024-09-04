@@ -1,10 +1,11 @@
 package org.ashish.cricket_score_app.service.impl;
 
 import org.ashish.cricket_score_app.entity.Player;
+import org.ashish.cricket_score_app.repository.PlayerRepository;
 import org.ashish.cricket_score_app.service.IPlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,15 +13,15 @@ import java.util.List;
  */
 @Service
 public class PlayerService implements IPlayerService {
-
-    List<Player> playerList = new ArrayList<>();
+    @Autowired
+    PlayerRepository playerRepository;
 
     /**
      * Add a new player
      * @param player Player to be added
      */
     public void addPlayer(Player player) {
-        playerList.add(player);
+        playerRepository.save(player);
     }
 
     /**
@@ -28,33 +29,35 @@ public class PlayerService implements IPlayerService {
      * @return List of all players
      */
     public List<Player> getAllPlayers() {
-        return playerList;
+        return playerRepository.findAll();
     }
 
     /**
      * Update a player
      *
-     * @param player
-     * @param playerId
+     * @param player Player to be updated
      * @return Updated player
      */
-    public Player updatePlayer(Player player, int playerId) {
-//        this.playerList.forEach(p -> p.);
-        this.playerList.stream()
-                .filter(p -> p.getId() == playerId)
-                .findFirst()
-                .ifPresent(p -> {
-                    p.setPlayerType(player.getPlayerType());
-                    p.setName(player.getName());
-                });
-        return player;
-    }
+    public Player updatePlayer(Player player) { return playerRepository.save(player); }
 
+    /**
+     * Get Player by Id
+     * @param playerId Id of player to be fetched
+     * @return Player
+     */
     @Override
     public Player getPlayer(int playerId) {
-        return playerList.stream()
-                .filter(p -> p.getId() == playerId)
-                .findFirst()
-                .get();
+        // doubt - how to handle null case i.e. if player with this Id is not present
+        return playerRepository.findById(playerId).orElse(null);
+    }
+
+    /**
+     * Delete player by id
+     * @param playerId Id of player to be deleted
+     */
+    @Override
+    public void deletePlayer(int playerId) {
+        // we should first search the player before delete?
+        playerRepository.deleteById(playerId);
     }
 }
