@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpClient;
 
 @RestController
 @RequestMapping("/players")
@@ -33,6 +32,6 @@ public class PlayerController {
 
     @PutMapping("/{playerId}")
     public ResponseEntity<?> updatePlayer(@RequestBody Player player, @PathVariable int playerId) {
-        return ResponseEntity.ok().body(playerService.updatePlayer(player, playerId));
+        return ResponseEntity.ok().body(playerService.updatePlayer(player));
     }
 }
