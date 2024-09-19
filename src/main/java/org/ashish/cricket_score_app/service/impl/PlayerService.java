@@ -48,7 +48,7 @@ public class PlayerService implements IPlayerService {
     @Override
     public Player getPlayer(int playerId) {
         // doubt - how to handle null case i.e. if player with this Id is not present
-        return playerRepository.findById(playerId).orElse(null);
+        return playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found"));
     }
 
     /**

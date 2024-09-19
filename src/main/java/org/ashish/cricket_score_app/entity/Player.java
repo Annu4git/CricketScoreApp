@@ -21,14 +21,11 @@ public class Player {
     private int id;
 
     private String name;
-    // doubt - type is not getting stored as string it is storing as number (1 or 2)
+    @Enumerated(EnumType.STRING)
     private PlayerType playerType;
 
-    //@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    //@JoinColumn(name = "record_id")
-    //private PlayerRecords records;
-
     // One-to-one relationship with Record
-    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private PlayerRecords records;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "record_id")
+    private PlayerRecord playerRecord;
 }
